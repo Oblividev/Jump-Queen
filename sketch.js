@@ -85,9 +85,9 @@ function setup() {
     bumpSound.playMode('sustain');
     landSound.playMode('sustain');
 
-    //lines.push(new Line(200,height - 80,width - 200, height-80));
-    //lines.push(new Line(10,height - 500,200, height-500));
-    //lines.push(new Line(200,height - 100,200, height-500));
+    // lines.push(new Line(200,height - 80,width - 200, height-80));
+    // lines.push(new Line(10,height - 500,200, height-500));
+    // lines.push(new Line(200,height - 100,200, height-500));
 
 
 }
@@ -117,19 +117,21 @@ function draw() {
     background(10);
 
 
-    if(frameCount % 5==0 ){
-            levelNumber  = (levelNumber +1)%43;
-    }
-    image(backgroundImage,0,0);
-    if (!creatingLines) {
+    // if(frameCount % 5==0 ){
+    //
+    //     levelNumber  = (levelNumber +1)%43;
+    // }
+    // image(backgroundImage,0,0);
+    // if (!creatingLines) {
 
-        if (!placingPlayer || playerPlaced) {
-                player.Update();
-            player.Show();
-        }
-    } else {
-        image(levelImages[levelNumber], 0, 0)
-    }
+    //     if (!placingPlayer || playerPlaced) {
+    //
+    //         player.Update();
+    //         player.Show();
+    //     }
+    // } else {
+    //     image(levelImages[levelNumber], 0, 0)
+    // }
     push()
     translate(0, 50);
     if (testingSinglePlayer) {
@@ -182,9 +184,9 @@ function draw() {
 
     pop();
 
-    //fill(0);
-    //noStroke();
-    //rect(0, 0, width, 50);
+    fill(0);
+    noStroke();
+    rect(0, 0, width, 50);
     if(!testingSinglePlayer){
         textSize(32);
         fill(255, 255, 255);
@@ -342,7 +344,7 @@ function mouseClicked() {
             mousePos1 = createVector(snappedX, snappedY);
         } else {
             mousePos2 = createVector(snappedX, snappedY);
-            print('tempLevel.lines.push(new Line(' + mousePos1.x + ',' + mousePos1.y + ',' + mousePos2.x + ',' + mousePos2.y + '));');
+            // print('tempLevel.lines.push(new Line(' + mousePos1.x + ',' + mousePos1.y + ',' + mousePos2.x + ',' + mousePos2.y + '));');
             lines.push(new Line(mousePos1.x, mousePos1.y, mousePos2.x, mousePos2.y));
             linesString += '\ntempLevel.lines.push(new Line(' + mousePos1.x + ',' + mousePos1.y + ',' + mousePos2.x + ',' + mousePos2.y + '));';
             mousePos1 = null;
