@@ -16,6 +16,9 @@ let playerIceRunAcceleration = 0.2;
 
 let mutePlayers = true;
 
+//variables added by me
+var autoJumpTimer = 0;
+
 class PlayerState {
     constructor() {
         this.currentPos = createVector(width / 2, height - 200); // this is the top left corner of the hitbox
@@ -779,6 +782,12 @@ class Player {
     UpdateJumpTimer() {
         if (this.isOnGround && this.jumpHeld && this.jumpTimer < maxJumpTimer) {
             this.jumpTimer += 1
+        } else if(this.jumpTimer == maxJumpTimer){
+            //autoJumpTimer += 1
+            //if(autoJumpTimer > 60){
+              player.Jump()
+              //autoJumpTimer = 0
+            //}
         }
     }
 
@@ -1119,13 +1128,12 @@ class Player {
         if (this.currentPos.y < -this.height) {
             //we are at the top of the screen
             this.currentLevelNo += 1;
+            player.music(this.currentLevelNo);
             this.currentPos.y += height;
 
 
         } else if (this.currentPos.y > height - this.height) {
             if (this.currentLevelNo === 0) {
-                //oh no
-                // print("fuck me hes goin under")
                 this.currentLevelNo = 1; //lol fixed
                 this.playersDead = true;
                 this.hasFinishedInstructions = true;
@@ -1273,7 +1281,37 @@ class Player {
             }
         }
     }
-
+    music(songNumber){
+      if(songNumber < 5){
+        //songNumber = 0
+        return
+      }else if(songNumber >= 5){
+        songNumber = 1
+      }else if(songNumber >= 9){
+        songNumber = 2
+      }else if(songNumber >= 24){
+        songNumber = 3
+      }
+      if(song){
+        console.log(player.getTitle(currentSong.src))
+        if(player.getTitle(currentSong.src) == player.getTitle(songs[songNumber])){
+          console.log('same song so no change')
+          return
+        }else{
+            console.log(`a new song: ${player.getTitle(songs[songNumber])} so it changed and paused the old one ${player.getTitle(currentSong.src)}`)
+            fade(currentSong)
+            console.log(player.getTitle(currentSong.src))
+        }
+      }
+      currentSong = new Audio(songs[songNumber])
+      currentSong.volume = 0;
+      fade(currentSong,false)
+      currentSong.play()
+      song = true;
+    }
+    getTitle(link){
+      return decodeURI(link.substring(link.indexOf('%20%20%20')+9).substring(0,link.substring(link.indexOf('%20%20%20')+9).indexOf('.mp4')))
+    }
     CheckForCoinCollisions() {
         if (this.currentLevelNo < this.bestLevelReached) {
             return;
