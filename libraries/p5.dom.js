@@ -807,7 +807,7 @@
               p5file.data = e.target.result;
               callback(p5file);
             };
-          };
+          }
           reader.onload = makeLoader(f);
 
           // Text or data?
